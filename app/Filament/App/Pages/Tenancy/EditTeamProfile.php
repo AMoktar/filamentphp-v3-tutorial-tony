@@ -16,10 +16,16 @@ class EditTeamProfile extends EditTenantProfile
 
       public function form(Form $form): Form
       {
+            // dd(self::getUrl());
             return $form
                   ->schema([
                         TextInput::make('name'),
                         TextInput::make('slug'),
                   ]);
+      }
+
+      protected function getRedirectUrl(): ?string
+      {
+            return self::getUrl();
       }
 }
