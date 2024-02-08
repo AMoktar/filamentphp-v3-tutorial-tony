@@ -2,6 +2,7 @@
 
 namespace App\Filament\App\Pages\Tenancy;
 
+use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Tenancy\EditTenantProfile;
@@ -16,7 +17,7 @@ class EditTeamProfile extends EditTenantProfile
 
       public function form(Form $form): Form
       {
-            // dd(self::getUrl());
+            // dump(self::getUrl());
             return $form
                   ->schema([
                         TextInput::make('name'),
@@ -26,6 +27,16 @@ class EditTeamProfile extends EditTenantProfile
 
       protected function getRedirectUrl(): ?string
       {
-            return self::getUrl();
+            return self::getUrl(tenant: $this->tenant->refresh());
+      }
+
+      public static function getRouteName(?string $panel = null): string
+      {
+            $panel = $panel ? Filament::getPanel($panel) : Filament::getCurrentPanel();
+
+            $routeName = 'tenant.' . static::getRelativeRouteName();
+            $routeName = static::prependClusterRouteBaseName($routeName);
+
+            return $panel->generateRouteName($routeName);
       }
 }
