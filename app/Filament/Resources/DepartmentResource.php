@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\App\Resources\DepartmentResource\RelationManagers\DepartmentOfficesRelationManager;
 use App\Filament\Resources\DepartmentResource\Pages;
 use App\Filament\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
@@ -105,7 +106,7 @@ class DepartmentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            DepartmentOfficesRelationManager::class,
         ];
     }
 
